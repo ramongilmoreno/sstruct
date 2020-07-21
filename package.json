@@ -5,9 +5,11 @@
   "main": "lib/sstruct.js",
   "devDependencies": {
     "eslint": "^7.5.0",
-    "eslint-config-strongloop": "^2.1.0"
+    "eslint-config-strongloop": "^2.1.0",
+    "jasmine": "^3.5.0"
   },
   "scripts": {
-    "pretest": "eslint --ignore-path .gitignore ."
+    "pretest": "eslint --ignore-path .gitignore .",
+    "test": "jasmine"
   }
 }
