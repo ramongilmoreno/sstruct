@@ -1,0 +1,13 @@
+{
+  "name": "sstruct",
+  "version": "0.0.1",
+  "description": "Simple struct",
+  "main": "lib/sstruct.js",
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-config-strongloop": "^2.1.0"
+  },
+  "scripts": {
+    "pretest": "eslint --ignore-path .gitignore ."
+  }
+}
