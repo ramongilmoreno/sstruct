@@ -1,3 +1,6 @@
+> **WARNING**: as of August 1st 2020, this module has not yet been released as
+> an npm package.
+
 # Simple Struct[ured] format (sstruct/ss)
 
 Definition and Javascript parser implementation of a simple structured file
