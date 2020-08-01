@@ -92,9 +92,48 @@ Since the `<separator>` of field cannot happen at the beginning
 
 Multiple fields values can be set in a single file. Actually
 
-### Meta values
+### Meta data values
 
-TBD
+Meta data are lines starting with the comment/hash `#` symbol *before the field
+name definition line*.
+
+The rest of the line after the `#` symbol is appended to the meta data, and
+will be associated with a field name when the field is defined. No trimming of
+the line is carried out.
+
+For example, these contents will result in the following result and meta data:
+
+Input:
+
+    #Metadata of field 1
+     #More metadata of field 1
+     # Even more metadata of field 1
+    _ field 1
+    Value of field 1
+    _ field 2 without metadata
+    Value of field 2
+    _
+    #Metadata of field 3
+    _ field 3
+    Value of field 3
+    _
+    # Metadata of no field, as EOF is reached. Will be discarded
+
+Meta data:
+
+    {
+        "field 1": "Metadata of field 1\nMore metadata of field 1\n Even more metadata of field 1",
+        "field 2 without metadata": "",
+        "field 3": "Metadata of field 3"
+    }
+
+Result:
+
+    {
+        "field 1": "Value of field 1",
+        "field 2 without metadata": "Value of field 2",
+        "field 3": "Value of field 3"
+    }
 
 ### Sensible trimming and removal of empty lines
 
@@ -130,19 +169,6 @@ For input data, these will be considered line breaks:
 The `.ss` filename extension (for _**S**imple **S**truct_, lowercase) is
 recommended.
 
-## Command line interface
-
-When installed the `sstruct` command will parse an input `.ss` file given as
-paremeter.
-
-    $ sstruct ./samples/README.ss
-    {
-        "1": "One",
-        "2": "T \n W\n  O",
-        "Number three": "333\n   3\n333\n   3\n333"
-    }
-    $
-
 ## Javascript implementation
 
 Install the `sstruct` package:
@@ -168,11 +194,48 @@ To parse a file create an input stream, with UTF-8 encoding, and call the `parse
 
 #### `parseStream(stream, [options])`
 
-Parses the given input stream and returns a `Promise` which will be resolved to the parsed object.
+Parses the given input stream and returns a `Promise` which will be resolved to
+the parsed object.
 
-The `options` object can provided to customize parsing with the following properties:
+The `options` object can provided to customize parsing with the following
+properties:
 
-* `meta`, an object where to store the meta data of each field.
-* `metaRemoveLeadingAndTrailingEmptyLines`, set to true (default value) to remove leading and trailing empty lines from meta data.
-* `valueRemoveLeadingAndTrailingEmptyLines`, set to true (default value) to remove leading and trailing empty lines from value data.
+* `meta`, if provided, meta data will be saved in this object. Properties names
+  will be the field names; and the meta data values will be the contents of the
+  meta data comments from the input.
+
+* `metaRemoveLeadingAndTrailingEmptyLines`, set to `true` (default value) to
+  remove leading and trailing empty lines from meta data.
+
+* `valueRemoveLeadingAndTrailingEmptyLines`, set to `true` (default value) to
+  remove leading and trailing empty lines from value data.
+
+### Command line interface (CLI)
+
+When installed, the `sstruct` command will parse an input `.ss` file given as
+paremeter (or read from the standard input).
+
+    $ sstruct help
+    sstruct command help
+
+        Parses a Simple Struct[ured] input writes the result to the output stream
+
+        Usage: sscript <action> [filename]
+
+        Where <action> is one of:
+
+          data - Parse input and write result to the output stream
+
+          meta - Parse input and write metadata to the output stream
+
+        The optional [filename] parameter tells which file to parse. If no file is
+        given, input will be the input stream.
+
+    $ sstruct data ./samples/README.ss
+    {
+        "1": "One",
+        "2": "T \n W\n  O",
+        "Number three": "333\n   3\n333\n   3\n333"
+    }
+    $
 
