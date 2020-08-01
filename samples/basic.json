@@ -1,0 +1,8 @@
+{
+   "first field": "Value\n\nof\n\nfirst\n\nfield\n\nleading and trailing empty lines will be trimmed",
+   "second field": " Value\n  of\n   second\n    field",
+   "third field (empty)": "",
+   "fourth field with different separator": "Some value of fourth field",
+   "fifth field with the same separator": "Some value of fifth field",
+   "sixth field with multicharacter separator": "Sixth field will be closed by the end of file"
+}

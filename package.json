@@ -11,5 +11,11 @@
   "scripts": {
     "pretest": "eslint --ignore-path .gitignore .",
     "test": "jasmine"
+  },
+  "dependencies": {
+    "pino": "^6.4.1"
+  },
+  "bin": {
+    "sstruct": "./lib/cli.js"
   }
 }

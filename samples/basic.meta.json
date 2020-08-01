@@ -1,0 +1,9 @@
+{
+   "first field": " Meta value 1 of first field\n    Meta value 2 of first field",
+   "second field": "",
+   "third field (empty)": "",
+   "fourth field with different separator": " Meta value 1 for fourth field with different separator\n   Meta value 2 for fourth field",
+   "fifth field with the same separator": "",
+   "sixth field with multicharacter separator": ""
+}
+
