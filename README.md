@@ -1,6 +1,3 @@
-> **WARNING**: as of August 1st 2020, this module has not yet been released as
-> an npm package.
-
 # Simple Struct[ured] format (sstruct/ss)
 
 Definition and Javascript parser implementation of a simple structured file
@@ -175,7 +172,8 @@ Install the `sstruct` package:
 
     $ npm install --save sstruct
 
-To parse a file create an input stream, with UTF-8 encoding, and call the `parseStream` method.
+To parse a file create an input stream, with UTF-8 encoding, and call the
+`parseStream` method.
 
     const fs = require('fs')
     const sstruct = require('sstruct')
@@ -215,6 +213,10 @@ properties:
 When installed, the `sstruct` command will parse an input `.ss` file given as
 paremeter (or read from the standard input).
 
+    $ npm install -g sstruct
+
+    ...
+
     $ sstruct help
     sstruct command help
 
@@ -238,4 +240,14 @@ paremeter (or read from the standard input).
         "Number three": "333\n   3\n333\n   3\n333"
     }
     $
+
+Use the `npx` command to run the `sstruct` command if installed locally:
+
+    $ npm install sstruct
+
+    ...
+
+    $ npx sstruct help
+
+    ...
 
