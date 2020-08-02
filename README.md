@@ -33,9 +33,9 @@ Also, the multiline capability for the values is simpler and more
 human-readable/editable than a multiline text in a JSON object. This is a key
 design goal for the simple structured format.
 
-## Example of a .ss file
+## Example of a Simple Struct[tured] file
 
-This is a sample file with three fields:
+This is a sample file with three fields (`.ss` extension is suggested):
 
     _ 1
     One
@@ -83,11 +83,39 @@ with the `<separator>` value.
 
     <separator>
 
+Note that a field closing line is not mandatory: a field close line with a new
+field name will close previous field and start a new one, with the same
+separator. The end of file (EOF) also closes the last field in the file.
+
 ### Multiple separator words
 
-Since the `<separator>` of field cannot happen at the beginning
+Since the string `<separator>` of field cannot happen at the beginning of the
+field contents, this string must be chosen in a way the field contents do not
+close the field incorrectly.
 
-Multiple fields values can be set in a single file. Actually
+Once a field separator has been selected, this selection does not impose a
+separator for other fields, as new fields might use their own separator.
+
+Here is an example of this multiplicity:
+
+    _ 1
+    One
+    _ 2
+    Two
+    _
+    x 3
+    _ The leading "_" is not a field separator, but part of value of field 3
+
+Which leads to this JSON output:
+
+    {
+        "1": "One",
+        "2": "Two",
+        "3": "_ The leading \"_\" is not a field separator, but part of value of field 3"
+    }
+
+Note that "1" and "3" fields were closed implicitly: "1" was closed by the the
+opening of field "2" with the same separator, and "3" was closed by the EOF.
 
 ### Meta data values
 
