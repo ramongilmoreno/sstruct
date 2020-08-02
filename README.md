@@ -206,7 +206,7 @@ To parse a file create an input stream, with UTF-8 encoding, and call the
     const fs = require('fs')
     const sstruct = require('sstruct')
 
-    var input = fs.createReadStream(args[0], { encoding: 'utf-8' })
+    var input = fs.createReadStream(ssfilename, { encoding: 'utf-8' })
     sstruct.parseStream(input)
       .finally(() => { input.close() })
       .then(result => {
@@ -246,21 +246,23 @@ paremeter (or read from the standard input).
     ...
 
     $ sstruct help
-    sstruct command help
+    sstruct command help.
 
-        Parses a Simple Struct[ured] input writes the result to the output stream
+    Parses a Simple Struct[ured] input and writes the result as JSON to the output
+    stream.
 
-        Usage: sscript <action> [filename]
+    Usage:
 
-        Where <action> is one of:
+        sscript <action> [filename]
 
-          data - Parse input and write result to the output stream
+    Where <action> is one of:
 
-          meta - Parse input and write metadata to the output stream
+        data - Parse input and write result to the output stream
 
-        The optional [filename] parameter tells which file to parse. If no file is
-        given, input will be the input stream.
+        meta - Parse input and write metadata to the output stream
 
+    The optional [filename] parameter tells which file to parse. If no file is
+    given, input will be the input stream. 
     $ sstruct data ./samples/README.ss
     {
         "1": "One",
