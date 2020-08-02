@@ -4,30 +4,30 @@
 
 const sstruct = require('../lib/sstruct')
 const fs = require('fs')
+const pino = require('pino')
+
+const logger = pino({ level: process.env['SSTRUCT_BASICSPEC_LOG_LEVEL'] || 'info' })
+
+var aux = function (filename) {
+    var basename = filename.replace(/\.ss$/, '')
+    logger.info('Testing filename %s[.ss/.data.json/.meta.json]', basename)
+    var expectedData = JSON.parse(fs.readFileSync(basename + '.data.json', 'utf8'))
+    var expectedMeta = JSON.parse(fs.readFileSync(basename + '.meta.json', 'utf8'))
+    var meta = {}
+    sstruct.parseFile(filename, { meta: meta })
+      .then(function (result) {
+        expect(result).toEqual(expectedData)
+        expect(meta).toEqual(expectedMeta)
+      })
+}
 
 describe('Simple Struct[ure] parser', function() {
+
   it('loads basic sample', function() {
-    var basic = fs.createReadStream('./samples/basic.ss', { encoding: 'utf-8' })
-    var expectedValues = JSON.parse(fs.readFileSync('./samples/basic.json', 'utf8'))
-    var expectedMeta = JSON.parse(fs.readFileSync('./samples/basic.meta.json', 'utf8'))
-    var meta = {}
-    sstruct.parseStream(basic, { meta: meta })
-      .then(function (result) {
-        basic.close()
-        expect(result).toEqual(expectedValues)
-        expect(meta).toEqual(expectedMeta)
-      })
+    aux('./samples/basic.ss')
   })
+
   it('loads meta data', function() {
-    var basic = fs.createReadStream('./samples/README.meta.ss', { encoding: 'utf-8' })
-    var expectedValues = JSON.parse(fs.readFileSync('./samples/README.meta.data.json', 'utf8'))
-    var expectedMeta = JSON.parse(fs.readFileSync('./samples/README.meta.meta.json', 'utf8'))
-    var meta = {}
-    sstruct.parseStream(basic, { meta: meta })
-      .then(function (result) {
-        basic.close()
-        expect(result).toEqual(expectedValues)
-        expect(meta).toEqual(expectedMeta)
-      })
+    aux('./samples/README.meta.ss')
   })
 })
