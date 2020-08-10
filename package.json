@@ -1,6 +1,6 @@
 {
   "name": "sstruct",
-  "version": "0.0.1c",
+  "version": "0.0.1d",
   "description": "Simple Struct[ured] format parser",
   "main": "lib/sstruct.js",
   "devDependencies": {

@@ -236,6 +236,20 @@ properties:
 * `valueRemoveLeadingAndTrailingEmptyLines`, set to `true` (default value) to
   remove leading and trailing empty lines from value data.
 
+#### `parseFile(filename, [options])`
+
+Parses the file at `filename`. Creates a stream from the file contents with
+UTF-8 encoding and calls `parseStream`.
+
+See `parseStream` for the details of the `options` parameter.
+
+#### `parseString(input, [options])`
+
+Parses the string given as `input` creating a stream from it and calling
+`parseStream`.
+
+See `parseStream` for the details of the `options` parameter.
+
 ### Command line interface (CLI)
 
 When installed, the `sstruct` command will parse an input `.ss` file given as

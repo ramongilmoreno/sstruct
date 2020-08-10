@@ -30,4 +30,24 @@ describe('Simple Struct[ure] parser', function() {
   it('loads meta data', function() {
     aux('./samples/README.meta.ss')
   })
+
+  it('knows how to parse files and strings', function() {
+    var path = './samples/basic.ss'
+    return Promise.all([
+      Promise.resolve()
+        .then(() => {
+          var input = fs.createReadStream(path, { encoding: 'utf-8' })
+          return sstruct.parseStream(input)
+            .finally(() => { input.close() })
+        }),
+      fs.promises.readFile(path, { encoding: 'utf8' })
+        .then(contents => sstruct.parseString(contents)),
+      sstruct.parseFile(path)
+    ])
+      .then(arr => {
+        expect(arr[0]).toEqual(arr[1])
+        expect(arr[1]).toEqual(arr[2])
+        expect(arr[0]).toEqual(arr[2])
+      })
+  })
 })
