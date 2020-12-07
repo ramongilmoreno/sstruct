@@ -31,6 +31,10 @@ describe('Simple Struct[ure] parser', function() {
     aux('./samples/README.meta.ss')
   })
 
+  it('detects separators at the beginning of the line', function() {
+    aux('./samples/separatorFirstInLineButNotNewField.ss')
+  })
+
   it('knows how to parse files and strings', function() {
     var path = './samples/basic.ss'
     return Promise.all([
