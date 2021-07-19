@@ -33,7 +33,7 @@ Also, the multiline capability for the values is simpler and more
 human-readable/editable than a multiline text in a JSON object. This is a key
 design goal for the simple structured format.
 
-## Example of a Simple Struct[tured] file
+## Example of a Simple Struct[ured] file
 
 This is a sample file with three fields (`.ss` extension is suggested):
 
